@@ -13,7 +13,7 @@ public class MoveAnimationAction : DotweenAnimationAction
 	[ShowIf("usePath")]
 	private Transform[] pathPoints;
 	Vector3[] path;
-	[SerializeField] private Transform pointContainer;
+	[SerializeField, ShowIf("usePath")] private Transform pointContainer;
 
 	[ShowIf("usePath")]
 	[SerializeField] private bool isClosedPath = false;
