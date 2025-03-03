@@ -32,6 +32,8 @@ namespace ScratchCardAsset
 
 		[SerializeField]
 		private ScratchMode _mode = ScratchMode.Erase;
+		public bool UseMousePositionToScratch;
+		public Transform ScratchPoint;
 
 		public ScratchMode Mode
 		{
@@ -41,7 +43,7 @@ namespace ScratchCardAsset
 				_mode = value;
 				if (Eraser != null)
 				{
-					var blendOp = _mode == ScratchMode.Erase ? (int) BlendOp.Add : (int) BlendOp.ReverseSubtract;
+					var blendOp = _mode == ScratchMode.Erase ? (int)BlendOp.Add : (int)BlendOp.ReverseSubtract;
 					Eraser.SetInt(BlendOpShaderParam, blendOp);
 				}
 			}
@@ -240,10 +242,10 @@ namespace ScratchCardAsset
 			var scratchPosition = Vector2.zero;
 			if (MainCamera.orthographic || isCanvasOverlay)
 			{
-				var clickPosition = isCanvasOverlay ? (Vector3) position : MainCamera.ScreenToWorldPoint(position);
+				var clickPosition = isCanvasOverlay ? (Vector3)position : MainCamera.ScreenToWorldPoint(position);
 				var lossyScale = Surface.lossyScale;
 				var clickLocalPosition = Vector2.Scale(Surface.InverseTransformPoint(clickPosition), lossyScale) +
-				                         boundsSize / 2f;
+										 boundsSize / 2f;
 				var pixelsPerInch = new Vector2(imageSize.x / boundsSize.x / lossyScale.x,
 					imageSize.y / boundsSize.y / lossyScale.y);
 				scratchPosition = Vector2.Scale(Vector2.Scale(clickLocalPosition, lossyScale), pixelsPerInch);
@@ -355,6 +357,11 @@ namespace ScratchCardAsset
 			}
 			ScratchSurface.mainTexture = texture;
 			IsScratched = true;
+		}
+
+		public void SetScratchPoint(Transform point)
+		{
+			ScratchPoint = point;
 		}
 
 		#endregion

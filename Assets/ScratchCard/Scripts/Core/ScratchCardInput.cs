@@ -17,7 +17,7 @@ namespace ScratchCardAsset.Core
 		public delegate void ScratchStartHandler();
 		public delegate void ScratchLineHandler(Vector2 start, Vector2 end);
 		public delegate void ScratchHoleHandler(Vector2 position);
-		
+
 		#endregion
 
 		public bool IsScratching
@@ -80,7 +80,7 @@ namespace ScratchCardAsset.Core
 					}
 					if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
 					{
-						TryScratch(fingerId, touch.position);
+						TryScratch(fingerId, GetPositionToScratch());
 					}
 					if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
 					{
@@ -97,13 +97,18 @@ namespace ScratchCardAsset.Core
 				}
 				if (Input.GetMouseButton(0))
 				{
-					TryScratch(0, Input.mousePosition);
+					TryScratch(0, GetPositionToScratch());
 				}
 				if (Input.GetMouseButtonUp(0))
 				{
 					isScratching[0] = false;
 				}
 			}
+		}
+
+		private Vector2 GetPositionToScratch()
+		{
+			return !(scratchCard.UseMousePositionToScratch && scratchCard.ScratchPoint != null) ? scratchCard.ScratchPoint.position : Input.mousePosition;
 		}
 
 		private void TryScratch(int fingerId, Vector2 position)
@@ -131,7 +136,7 @@ namespace ScratchCardAsset.Core
 				isScratching[fingerId] = true;
 			}
 		}
-		
+
 		public void Scratch()
 		{
 			for (var i = 0; i < isScratching.Length; i++)
