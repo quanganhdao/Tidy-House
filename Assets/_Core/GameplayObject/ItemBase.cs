@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using JetBrains.Annotations;
 
 public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public bool isDraggable = true;
+    [SerializeField] private bool isDroppable = true;
     public UnityEvent OnDroppedRightPlace;
 
     private RectTransform rectTransform;
@@ -29,6 +31,12 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!isDroppable)
+        {
+            rectTransform.anchoredPosition = originalPosition;
+            return;
+        }
+
         if (!isDraggable) return;
 
         GameObject dropZone = eventData.pointerEnter;

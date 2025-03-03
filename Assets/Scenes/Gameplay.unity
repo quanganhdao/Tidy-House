@@ -586,6 +586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDraggable: 1
+  isDroppable: 0
   OnDroppedRightPlace:
     m_PersistentCalls:
       m_Calls:
