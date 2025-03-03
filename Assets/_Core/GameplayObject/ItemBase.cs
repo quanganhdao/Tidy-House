@@ -32,7 +32,7 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         if (!isDraggable) return;
 
         GameObject dropZone = eventData.pointerEnter;
-        if (dropZone.TryGetComponent<DropDestination>(out var dropDestination))
+        if (dropZone != null && dropZone.TryGetComponent<DropDestination>(out var dropDestination))
         {
             var isValid = dropDestination.DoesNeedItem(this);
             if (isValid)
