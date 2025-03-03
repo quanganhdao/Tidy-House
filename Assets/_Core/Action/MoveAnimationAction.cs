@@ -54,6 +54,16 @@ public class MoveAnimationAction : DotweenAnimationAction
 
 	private void OnDrawGizmosSelected()
 	{
+		ProcressGizmos();
+	}
+
+	void OnDrawGizmos()
+	{
+		ProcressGizmos();
+	}
+
+	void ProcressGizmos()
+	{
 		if (!usePath || pathPoints == null || pathPoints.Length == 0 || animationTarget == null || destination == null)
 			return;
 
