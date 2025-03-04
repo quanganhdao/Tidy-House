@@ -2,18 +2,37 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using JetBrains.Annotations;
+using UnityEngine.UI;
 
 public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public bool isDraggable = true;
     [SerializeField] private bool isDroppable = true;
     [SerializeField] private bool isResetPositionWhenPlaceWrong = true;
+    [SerializeField] private bool isSetPosToDestinationWhenPlaceRight;
     [SerializeField] private UnityEvent OnPickedUp;
     public UnityEvent OnDroppedRightPlace;
     [SerializeField] private UnityEvent OnDropWrongPlace;
 
+    [SerializeField] private CanvasGroup canvasGroup;
+
     private RectTransform rectTransform;
     private Vector3 originalPosition;
+    void Awake()
+    {
+        if (canvasGroup == null)
+        {
+            if (TryGetComponent<CanvasGroup>(out var canvasGroup))
+            {
+                this.canvasGroup = canvasGroup;
+            }
+            else
+            {
+                this.canvasGroup = gameObject.AddComponent<CanvasGroup>();
+            }
+        }
+    }
+
 
     private void Start()
     {
@@ -23,6 +42,7 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        canvasGroup.blocksRaycasts = false;
         if (!isDraggable) return;
         OnPickedUp?.Invoke();
     }
@@ -35,6 +55,7 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        canvasGroup.blocksRaycasts = true;
         if (!isDroppable)
         {
             DropWrong();
@@ -50,6 +71,10 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             var isValid = dropDestination.DoesNeedItem(this);
             if (isValid)
             {
+                if (isSetPosToDestinationWhenPlaceRight)
+                {
+                    dropDestination.PlaceItem();
+                }
                 OnDroppedRightPlace?.Invoke();
             }
         }
@@ -67,4 +92,10 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         }
         OnDropWrongPlace?.Invoke();
     }
+
+    public void SetIsDraggable(bool drag)
+    {
+        isDraggable = drag;
+    }
+
 }

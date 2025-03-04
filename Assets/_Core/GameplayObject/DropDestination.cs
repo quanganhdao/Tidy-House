@@ -17,8 +17,8 @@ public class DropDestination : MonoBehaviour
         return item == necessaryItem;
     }
 
-    public void PlaceItem(ItemBase item)
+    public void PlaceItem()
     {
-        item.transform.position = snapPosition.position;
+        necessaryItem.transform.position = snapPosition.position;
     }
 }
