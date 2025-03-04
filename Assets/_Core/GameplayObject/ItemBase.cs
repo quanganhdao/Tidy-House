@@ -7,7 +7,9 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 {
     public bool isDraggable = true;
     [SerializeField] private bool isDroppable = true;
+    [SerializeField] private UnityEvent OnPickedUp;
     public UnityEvent OnDroppedRightPlace;
+    [SerializeField] private UnityEvent OnDropWrongPlace;
 
     private RectTransform rectTransform;
     private Vector3 originalPosition;
@@ -21,6 +23,7 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!isDraggable) return;
+        OnPickedUp?.Invoke();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -34,6 +37,8 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         if (!isDroppable)
         {
             rectTransform.anchoredPosition = originalPosition;
+            OnDropWrongPlace?.Invoke();
+
             return;
         }
 
@@ -51,6 +56,7 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         else
         {
             rectTransform.anchoredPosition = originalPosition;
+            OnDropWrongPlace?.Invoke();
         }
     }
 }
