@@ -7,9 +7,9 @@ public class DotweenAnimationAction : ActionBase
 	[SerializeField] protected Transform animationTarget;
 	[SerializeField] protected float duration;
 	protected Tween tween;
-	[SerializeField, Title("Ease Settings")] private bool useEase;
-	[SerializeField, ShowIf("useEase")] private Ease easeType = Ease.Linear;
-	[SerializeField, HideIf("useEase")] protected AnimationCurve animationCurve;
+	[SerializeField/* , Title("Ease Settings") */] private bool useEase;
+	[SerializeField/* , ShowIf("useEase") */] private Ease easeType = Ease.Linear;
+	[SerializeField/* , HideIf("useEase") */] protected AnimationCurve animationCurve;
 
 	public override void DoAction()
 	{

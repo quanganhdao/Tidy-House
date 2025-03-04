@@ -7,15 +7,15 @@ public class MoveAnimationAction : DotweenAnimationAction
 {
 	[SerializeField] private Transform destination;
 
-	[Title("Path Settings")]
+	// [Title("Path Settings")]
 	[SerializeField] private bool usePath = false;
 
-	[ShowIf("usePath")]
+	// [ShowIf("usePath")]
 	private Transform[] pathPoints;
 	Vector3[] path;
-	[SerializeField, ShowIf("usePath")] private Transform pointContainer;
+	[SerializeField, /* ShowIf("usePath") */] private Transform pointContainer;
 
-	[ShowIf("usePath")]
+	// [ShowIf("usePath")]
 	[SerializeField] private bool isClosedPath = false;
 	[SerializeField] private Color gizmoColor = Color.green;
 

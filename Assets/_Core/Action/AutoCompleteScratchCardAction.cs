@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using ScratchCardAsset;
-using Sirenix.OdinInspector.Editor;
 using UnityEngine;
 using UnityEngine.Events;
 using static ScratchCardAsset.ScratchCard;

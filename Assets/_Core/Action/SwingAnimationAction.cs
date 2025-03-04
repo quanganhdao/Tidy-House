@@ -4,7 +4,7 @@ using Sirenix.OdinInspector; // Nếu bạn dùng Odin Inspector
 
 public class SwingAnimationAction : DotweenAnimationAction
 {
-	[Title("Swing Settings")]
+	// [Title("Swing Settings")]
 	[SerializeField] private Transform pivot;
 
 	[SerializeField, Range(10f, 90f)]
