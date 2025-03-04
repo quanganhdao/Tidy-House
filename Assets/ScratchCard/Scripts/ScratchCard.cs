@@ -274,6 +274,10 @@ namespace ScratchCardAsset
 		/// </summary>
 		public void FillInstantly()
 		{
+			if (cardRenderer == null)
+			{
+				cardRenderer = new ScratchCardRenderer(this);
+			}
 			cardRenderer.FillRenderTextureWithColor(Color.white);
 			IsScratched = true;
 		}
