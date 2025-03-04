@@ -20,8 +20,16 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private Vector3 originalPosition;
 
     private Vector2 offset;
+
+    private Transform originalParent;
+    private int indexInParent;
+
+    private Canvas canvas;
     void Awake()
     {
+        originalParent = transform.parent;
+        indexInParent = transform.GetSiblingIndex();
+
         if (canvasGroup == null)
         {
             if (TryGetComponent<CanvasGroup>(out var canvasGroup))
@@ -33,17 +41,19 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 this.canvasGroup = gameObject.AddComponent<CanvasGroup>();
             }
         }
+        canvas = FindObjectOfType<Canvas>();
     }
 
 
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        originalPosition = rectTransform.anchoredPosition;
+        originalPosition = transform.localPosition;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        transform.parent = canvas.transform;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             (RectTransform)rectTransform.parent,
             eventData.position,
@@ -98,13 +108,16 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         {
             DropWrong();
         }
+        canvasGroup.blocksRaycasts = true;
     }
 
     private void DropWrong()
     {
         if (isResetPositionWhenPlaceWrong)
         {
-            rectTransform.anchoredPosition = originalPosition;
+            transform.parent = originalParent;
+            transform.SetSiblingIndex(indexInParent);
+            transform.localPosition = originalPosition;
         }
         OnDropWrongPlace?.Invoke();
     }
