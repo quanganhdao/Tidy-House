@@ -18,6 +18,8 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     private RectTransform rectTransform;
     private Vector3 originalPosition;
+
+    private Vector2 offset;
     void Awake()
     {
         if (canvasGroup == null)
@@ -42,6 +44,13 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            (RectTransform)rectTransform.parent,
+            eventData.position,
+            eventData.pressEventCamera,
+            out offset
+        );
+        offset -= rectTransform.anchoredPosition;
         canvasGroup.blocksRaycasts = false;
         if (!isDraggable) return;
         OnPickedUp?.Invoke();
@@ -50,7 +59,14 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnDrag(PointerEventData eventData)
     {
         if (!isDraggable) return;
-        rectTransform.anchoredPosition += eventData.delta;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            (RectTransform)rectTransform.parent,
+            eventData.position,
+            eventData.pressEventCamera,
+            out Vector2 localPoint))
+        {
+            rectTransform.anchoredPosition = localPoint - offset;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
