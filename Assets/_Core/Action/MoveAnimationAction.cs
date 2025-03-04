@@ -43,6 +43,7 @@ public class MoveAnimationAction : DotweenAnimationAction
 
 	private void Awake()
 	{
+		if (!usePath) return;
 		pathPoints = pointContainer.GetComponentsInChildren<Transform>().Skip(1).ToArray();
 		path = new Vector3[pathPoints.Length + 2];
 

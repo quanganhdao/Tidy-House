@@ -11,7 +11,7 @@ public class FadeAction : DotweenAnimationAction
 
     public override void DoAction()
     {
-        image.DOFade(opacity, duration).OnComplete(() =>
+        tween = image.DOFade(opacity, duration).OnComplete(() =>
         {
             OnActionCompleted?.Invoke();
         });

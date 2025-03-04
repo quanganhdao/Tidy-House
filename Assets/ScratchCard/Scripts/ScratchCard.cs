@@ -90,6 +90,10 @@ namespace ScratchCardAsset
 		{
 			Init();
 		}
+		public bool IsScratchCardRendererInit()
+		{
+			return cardRenderer != null;
+		}
 
 		void OnDestroy()
 		{
@@ -274,10 +278,6 @@ namespace ScratchCardAsset
 		/// </summary>
 		public void FillInstantly()
 		{
-			if (cardRenderer == null)
-			{
-				cardRenderer = new ScratchCardRenderer(this);
-			}
 			cardRenderer.FillRenderTextureWithColor(Color.white);
 			IsScratched = true;
 		}
