@@ -132,7 +132,10 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     }
     private void MoveBack(Action onBack)
     {
-        transform.DOMove(originalPosition, 0.7f).OnComplete(onBack.Invoke);
+        transform.DOMove(originalPosition, 0.7f).OnComplete(() =>
+        {
+            onBack?.Invoke();
+        });
     }
 
     public void SetIsDraggable(bool drag)

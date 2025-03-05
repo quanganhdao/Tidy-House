@@ -68,42 +68,20 @@ namespace ScratchCardAsset.Core
 			if (!scratchCard.InputEnabled)
 				return;
 
-			if (Input.touchSupported && Input.touchCount > 0 && !isWebgl)
+			if (Input.GetMouseButtonDown(0))
 			{
-				foreach (var touch in Input.touches)
-				{
-					var fingerId = touch.fingerId + 1;
-					if (touch.phase == TouchPhase.Began)
-					{
-						isScratching[fingerId] = false;
-						isStartPosition[fingerId] = true;
-					}
-					if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
-					{
-						TryScratch(fingerId, GetPositionToScratch());
-					}
-					if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-					{
-						isScratching[fingerId] = false;
-					}
-				}
+				isScratching[0] = false;
+				isStartPosition[0] = true;
 			}
-			else
+			if (Input.GetMouseButton(0))
 			{
-				if (Input.GetMouseButtonDown(0))
-				{
-					isScratching[0] = false;
-					isStartPosition[0] = true;
-				}
-				if (Input.GetMouseButton(0))
-				{
-					TryScratch(0, GetPositionToScratch());
-				}
-				if (Input.GetMouseButtonUp(0))
-				{
-					isScratching[0] = false;
-				}
+				TryScratch(0, GetPositionToScratch());
 			}
+			if (Input.GetMouseButtonUp(0))
+			{
+				isScratching[0] = false;
+			}
+
 		}
 
 		private Vector2 GetPositionToScratch()

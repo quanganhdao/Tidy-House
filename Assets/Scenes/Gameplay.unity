@@ -335,6 +335,14 @@ PrefabInstance:
       propertyPath: animationTarget
       value: 
       objectReference: {fileID: 1686968121}
+    - target: {fileID: 4656567322793841721, guid: f621c25f7ef0d9b4796f5b7afc66053d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5910687904382388604, guid: f621c25f7ef0d9b4796f5b7afc66053d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 6233991838484670741, guid: f621c25f7ef0d9b4796f5b7afc66053d, type: 3}
       propertyPath: useEase
       value: 1
@@ -422,6 +430,10 @@ PrefabInstance:
     - target: {fileID: 6820409607157621708, guid: f621c25f7ef0d9b4796f5b7afc66053d, type: 3}
       propertyPath: OnActionCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8187835861548922603, guid: f621c25f7ef0d9b4796f5b7afc66053d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -14.409912
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
