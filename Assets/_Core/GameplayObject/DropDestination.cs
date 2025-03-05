@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -19,6 +20,6 @@ public class DropDestination : MonoBehaviour
 
     public void PlaceItem()
     {
-        necessaryItem.transform.position = snapPosition.position;
+        necessaryItem.transform.DOMove(snapPosition.position, 0.1f);
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using JetBrains.Annotations;
 using UnityEngine.UI;
+using DG.Tweening;
+using System;
 
 public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -26,6 +28,9 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private int indexInParent;
 
     private Canvas canvas;
+
+    public Vector3 OriginalPosition { get => originalPosition; set => originalPosition = value; }
+
     void Awake()
     {
         originalParent = transform.parent;
@@ -49,11 +54,12 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        originalPosition = transform.localPosition;
+        originalPosition = transform.position;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        DOTween.Kill(transform);
         transform.parent = canvas.transform;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             (RectTransform)rectTransform.parent,
@@ -116,11 +122,17 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         if (isResetPositionWhenPlaceWrong)
         {
-            transform.parent = originalParent;
-            transform.SetSiblingIndex(indexInParent);
-            transform.localPosition = originalPosition;
+            MoveBack(() =>
+            {
+                transform.SetParent(originalParent);
+                transform.SetSiblingIndex(indexInParent);
+            });
         }
         OnDropWrongPlace?.Invoke();
+    }
+    private void MoveBack(Action onBack)
+    {
+        transform.DOMove(originalPosition, 0.7f).OnComplete(onBack.Invoke);
     }
 
     public void SetIsDraggable(bool drag)
