@@ -5,6 +5,8 @@ public class AudioEmitter : MonoBehaviour
 {
     private AudioSource audioSource;
 
+    public AudioSource AudioSource { get => audioSource; set => audioSource = value; }
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();

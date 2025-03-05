@@ -11,6 +11,7 @@ public class AutoCompleteScratchCardAction : MonoBehaviour
 
     [SerializeField] private ScratchMode scratchMode;
     [SerializeField] private UnityEvent OnAutoFillCompleted;
+    private bool isCompleted;
 
     void Awake()
     {
@@ -28,18 +29,20 @@ public class AutoCompleteScratchCardAction : MonoBehaviour
     {
         if (scratchMode == ScratchMode.Erase)
         {
-            if (progress >= threshold)
+            if (progress >= threshold && !isCompleted)
             {
                 scratchCard.FillInstantly();
                 OnAutoFillCompleted?.Invoke();
+                isCompleted = true;
             }
         }
         else
         {
-            if (progress < threshold)
+            if (progress < threshold & !isCompleted)
             {
                 scratchCard.ClearInstantly();
                 OnAutoFillCompleted?.Invoke();
+                isCompleted = true;
             }
         }
     }
