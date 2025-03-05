@@ -18,6 +18,7 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     private RectTransform rectTransform;
     private Vector3 originalPosition;
+    private Vector3 originalRotation;
 
     private Vector2 offset;
 

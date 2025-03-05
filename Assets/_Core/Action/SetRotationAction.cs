@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
-public class SetRotationAction : ActionBase
+public class SetRotationAction : DotweenAnimationAction
 {
     [SerializeField]
     private Vector3 rotation
     ;
-    [SerializeField] private Transform target;
     public override void DoAction()
     {
-        target.rotation = Quaternion.Euler(rotation);
+        tween = animationTarget.DORotate(rotation, duration);
     }
 }
