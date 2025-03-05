@@ -4,12 +4,6 @@ using System;
 
 public class SoundManager : SingletonBase<SoundManager>
 {
-    [SerializeField] private AudioClip pa2Audio;
-
-    void Start()
-    {
-        PlaySound(pa2Audio, 1, true);
-    }
     public void PlaySound(AudioClip clip, float volume = 1f, bool isLoop = false, Action onClipEnded = null)
     {
         if (clip == null)
