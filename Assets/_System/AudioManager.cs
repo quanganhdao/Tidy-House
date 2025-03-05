@@ -2,7 +2,7 @@ using UnityEngine;
 using DarkTonic.PoolBoss;
 using System;
 
-public class SoundManager : SingletonBase<SoundManager>
+public class AudioManager : SingletonBase<AudioManager>
 {
     public void PlaySound(AudioClip clip, float volume = 1f, bool isLoop = false, Action onClipEnded = null)
     {
