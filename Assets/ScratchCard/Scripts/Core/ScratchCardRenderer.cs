@@ -28,7 +28,7 @@ namespace ScratchCardAsset.Core
 		{
 			scratchCard = card;
 			localBounds = new Bounds(Vector2.one / 2f, Vector2.one);
-			commandBuffer = new CommandBuffer {name = "ScratchCardRenderer"};
+			commandBuffer = new CommandBuffer { name = "ScratchCardRenderer" };
 			meshHole = MeshGenerator.GenerateQuad(Vector3.zero, Vector2.zero);
 		}
 
@@ -71,7 +71,7 @@ namespace ScratchCardAsset.Core
 			var bottomLeft = rect.min;
 			var bottomRight = new Vector2(rect.max.x, rect.min.y);
 			return localBounds.Contains(upperLeft) || localBounds.Contains(upperRight) ||
-			       localBounds.Contains(bottomLeft) || localBounds.Contains(bottomRight);
+				   localBounds.Contains(bottomLeft) || localBounds.Contains(bottomRight);
 		}
 
 		/// <summary>
