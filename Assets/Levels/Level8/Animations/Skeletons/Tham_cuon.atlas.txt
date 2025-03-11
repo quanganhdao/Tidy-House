@@ -1,0 +1,9 @@
+Tham_cuon.png
+size:2048,1024
+filter:Linear,Linear
+pma:true
+Folder_13
+bounds:1128,34,952,164
+rotate:90
+Layer_6_Copy
+bounds:2,2,1124,984

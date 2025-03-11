@@ -24,9 +24,17 @@ public class AudioEmitter : MonoBehaviour
             Invoke(nameof(Deactivate), clip.length);
     }
 
-    private void Deactivate()
+    public void Deactivate()
     {
         // Trả object về Pool
         PoolBoss.Despawn(transform);
     }
+
+
+    public void OnAudioTriggerDisable()
+    {
+        AudioSource.Stop();
+        Deactivate();
+    }
+
 }

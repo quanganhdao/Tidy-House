@@ -9,7 +9,7 @@ public class ActionOnAwake : MonoBehaviour
 
     [SerializeField] private UnityEvent OnAwake;
     [SerializeField] private UnityEvent OnStart;
-    [SerializeField] private UnityEvent OnEnable;
+    [SerializeField] private UnityEvent OnEnableHandler;
 
     void Awake()
     {
@@ -19,5 +19,9 @@ public class ActionOnAwake : MonoBehaviour
     void Start()
     {
         OnStart?.Invoke();
+    }
+    void OnEnable()
+    {
+        OnEnableHandler?.Invoke();
     }
 }

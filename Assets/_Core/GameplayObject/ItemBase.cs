@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System;
 
-public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
 {
     public bool isDraggable = true;
     [SerializeField] private bool isDroppable = true;
@@ -15,6 +15,7 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     [SerializeField] private UnityEvent OnPickedUp;
     public UnityEvent OnDroppedRightPlace;
     [SerializeField] private UnityEvent OnDropWrongPlace;
+    [SerializeField] private UnityEvent OnPointerDownHandler;
 
     [SerializeField] private CanvasGroup canvasGroup;
 
@@ -143,4 +144,8 @@ public class ItemBase : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         isDraggable = drag;
     }
 
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        OnPointerDownHandler?.Invoke();
+    }
 }

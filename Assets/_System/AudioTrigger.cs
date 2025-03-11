@@ -31,4 +31,10 @@ public class AudioTrigger : MonoBehaviour
             }
         }
     }
+
+    void OnDisable()
+    {
+        emitter.OnAudioTriggerDisable();
+    }
+
 }

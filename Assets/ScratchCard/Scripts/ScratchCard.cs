@@ -28,7 +28,7 @@ namespace ScratchCardAsset
 		public Material ScratchSurface;
 		public RenderTexture RenderTexture;
 		public Vector2 BrushScale = Vector2.one;
-		public bool InputEnabled = true;
+		private bool inputEnabled = true;
 
 		[SerializeField]
 		private ScratchMode _mode = ScratchMode.Erase;
@@ -66,6 +66,14 @@ namespace ScratchCardAsset
 				return false;
 			}
 			private set { cardRenderer.IsScratched = value; }
+		}
+
+		public bool InputEnabled
+		{
+			get => inputEnabled; set
+			{
+				inputEnabled = value;
+			}
 		}
 
 		private ScratchCardRenderer cardRenderer;

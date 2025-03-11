@@ -138,7 +138,10 @@ namespace ScratchCardAsset.Core
 					{
 						if (OnScratchLine != null)
 						{
-							OnScratchLine(eraseStartPositions[i], eraseEndPositions[i]);
+							float distance = Vector3.Distance(eraseStartPositions[i], eraseEndPositions[i]);
+							Debug.Log(distance);
+							if (distance < 100f)
+								OnScratchLine(eraseStartPositions[i], eraseEndPositions[i]);
 						}
 					}
 				}
